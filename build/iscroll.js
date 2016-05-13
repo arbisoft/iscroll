@@ -1136,8 +1136,7 @@ IScroll.prototype = {
 				wheelDeltaY = -e.deltaY * this.options.mouseWheelSpeed;
 			} else {
 				wheelDeltaX = -e.deltaX;
-				wheelD
-				eltaY = -e.deltaY;
+				wheelDeltaY = -e.deltaY;
 			}
 		} else if ( 'wheelDeltaX' in e ) {
 			wheelDeltaX = e.wheelDeltaX / 120 * this.options.mouseWheelSpeed;
@@ -1226,7 +1225,7 @@ IScroll.prototype = {
 
 	// INSERT POINT: _wheel
 	},
-	
+
 
 	_initSnap: function () {
 		this.currentPage = {};

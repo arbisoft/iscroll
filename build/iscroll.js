@@ -1105,6 +1105,7 @@ IScroll.prototype = {
 		});
 	},
 
+
 	_wheel: function (e) {
 		if ( !this.enabled ) {
 			return;
@@ -1113,8 +1114,8 @@ IScroll.prototype = {
 		e.preventDefault();
 
 		var wheelDeltaX, wheelDeltaY,
-			newX, newY,
-			that = this;
+		newX, newY,
+		that = this;
 
 		if ( this.wheelTimeout === undefined ) {
 			that._execEvent('scrollStart');
@@ -1135,7 +1136,8 @@ IScroll.prototype = {
 				wheelDeltaY = -e.deltaY * this.options.mouseWheelSpeed;
 			} else {
 				wheelDeltaX = -e.deltaX;
-				wheelDeltaY = -e.deltaY;
+				wheelD
+				eltaY = -e.deltaY;
 			}
 		} else if ( 'wheelDeltaX' in e ) {
 			wheelDeltaX = e.wheelDeltaX / 120 * this.options.mouseWheelSpeed;
@@ -1183,6 +1185,23 @@ IScroll.prototype = {
 		this.directionX = wheelDeltaX > 0 ? -1 : wheelDeltaX < 0 ? 1 : 0;
 		this.directionY = wheelDeltaY > 0 ? -1 : wheelDeltaY < 0 ? 1 : 0;
 
+
+		/***
+		* handler function to retrigger
+		* window scroll event if iscroll reaches to
+		* it's max limits..
+		*/
+		/*Raza-aamir fix - start*/
+		function handler (evt ) {
+			var t = evt.target;
+			setTimeout( function() {
+				t.dispatchEvent( evt );
+				that.enabled=true;
+			}, 100);
+			return false;
+		}
+		/*Raza-aamir fix end*/
+
 		if ( newX > 0 ) {
 			newX = 0;
 		} else if ( newX < this.maxScrollX ) {
@@ -1190,15 +1209,24 @@ IScroll.prototype = {
 		}
 
 		if ( newY > 0 ) {
+			/*Raza-aamir fix - start*/
+			this.enabled = false;
+			handler(e);
+			/*Raza-aamir fix end*/
 			newY = 0;
 		} else if ( newY < this.maxScrollY ) {
+			/*Raza-aamir fix - start*/
+			this.enabled = false;
+			handler(e);
+			/*Raza-aamir fix - end*/
 			newY = this.maxScrollY;
 		}
 
 		this.scrollTo(newX, newY, 0);
 
-// INSERT POINT: _wheel
+	// INSERT POINT: _wheel
 	},
+	
 
 	_initSnap: function () {
 		this.currentPage = {};

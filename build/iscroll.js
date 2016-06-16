@@ -1192,13 +1192,13 @@ IScroll.prototype = {
 		*/
 		/*Raza-aamir fix - start*/
 		function handler (evt, evt_type) {
-		    var t = evt.target;			    
+		    var _target = evt.target;			    
 		    setTimeout( function() {		    	
 
 		    	//a fix for IE11
 		    	var scroll_evt = document.createEvent("MouseEvents");		    	
 			scroll_evt.initMouseEvent(evt_type, true, true, window, evt.detail, evt.screenX, evt.screenY, evt.clientX, evt.clientY, evt.ctrlKey, evt.altKey, evt.shiftKey, evt.metaKey, evt.button, evt.relatedTarget);
-			document.body.dispatchEvent(scroll_evt);		        
+			_target.dispatchEvent(scroll_evt);		        
 
 		        //t.dispatchEvent( evt )
 		        that.enabled=true;

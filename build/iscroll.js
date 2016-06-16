@@ -1198,7 +1198,7 @@ IScroll.prototype = {
 		    	//a fix for IE11
 		    	var scroll_evt = document.createEvent("MouseEvents");		    	
 			scroll_evt.initMouseEvent(evt_type, true, true, window, evt.detail, evt.screenX, evt.screenY, evt.clientX, evt.clientY, evt.ctrlKey, evt.altKey, evt.shiftKey, evt.metaKey, evt.button, evt.relatedTarget);
-			t.dispatchEvent(scroll_evt);		        
+			document.body.dispatchEvent(scroll_evt);		        
 
 		        //t.dispatchEvent( evt )
 		        that.enabled=true;
